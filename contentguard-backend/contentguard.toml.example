@@ -1,0 +1,146 @@
+# ContentGuard AI Configuration File
+# Copy this file to contentguard.toml and customize as needed
+
+[app]
+name = "ContentGuard AI"
+version = "1.0.0"
+
+# Data directories
+data_dir = "~/.local/share/contentguard"
+models_dir = "~/.local/share/contentguard/models"
+policies_dir = "~/.local/share/contentguard/policies"
+temp_dir = "/tmp/contentguard"
+
+# Maximum memory usage in MB (default: 4096)
+max_memory_mb = 4096
+
+[gpu]
+# Enable GPU acceleration
+enabled = true
+
+# GPU backend (vulkan, metal, dx12)
+backend = "vulkan"
+
+# GPU device index (0 for primary)
+device_index = 0
+
+# Maximum VRAM usage in MB
+max_vram_mb = 2048
+
+# Compute shader workgroup size
+workgroup_size = [256, 1, 1]
+
+# Enable shader caching
+shader_cache = true
+
+[analysis]
+# Frame extraction intervals (in seconds) for different analysis depths
+frame_interval_fast = 2.0
+frame_interval_standard = 0.5
+frame_interval_deep = 0.1
+
+# Audio sample rate for analysis
+audio_sample_rate = 16000
+
+# Enable/disable specific analysis features
+enable_audio_fingerprint = true
+enable_visual_detection = true
+enable_text_analysis = true
+enable_scene_classification = true
+
+# Minimum confidence threshold for detections (0.0 - 1.0)
+min_confidence_threshold = 0.6
+
+# Number of parallel analysis threads
+parallel_threads = 4
+
+# Batch size for GPU inference
+gpu_batch_size = 32
+
+# Maximum segment duration for analysis (seconds)
+max_segment_duration_seconds = 300.0
+
+[server]
+# Bind address for API server
+bind_address = "127.0.0.1:8080"
+
+# Number of worker threads
+workers = 4
+
+# Request timeout (seconds)
+request_timeout_seconds = 300
+
+# Maximum request size (MB)
+max_request_size_mb = 1024
+
+# Enable CORS
+enable_cors = true
+
+# Allowed CORS origins
+cors_origins = [
+    "http://localhost:3000",
+    "http://localhost:8080",
+]
+
+# Enable WebSocket support
+enable_websocket = true
+
+# JWT secret for authentication (optional)
+# jwt_secret = "your-secret-key-here"
+
+# Enable Prometheus metrics
+enable_metrics = true
+
+# Metrics endpoint path
+metrics_path = "/metrics"
+
+[policy_updates]
+# Enable automatic policy updates
+auto_update = true
+
+# Update check interval (hours)
+check_interval_hours = 24
+
+# Policy update endpoint URL
+update_url = "https://api.contentguard.ai/v1/policies"
+
+# Verify update signatures
+verify_signatures = true
+
+# Public key path for signature verification
+# public_key_path = "/etc/contentguard/public_key.pem"
+
+[logging]
+# Log level (trace, debug, info, warn, error)
+level = "info"
+
+# Log format (json, pretty, compact)
+format = "pretty"
+
+# Log to file
+log_to_file = false
+
+# Log file path (if log_to_file is true)
+# log_file_path = "/var/log/contentguard/contentguard.log"
+
+# Log rotation (daily, hourly, never)
+rotation = "daily"
+
+# Enable console output
+console_output = true
+
+[features]
+# Enable GPU acceleration
+enable_gpu = true
+
+# Enable distributed processing (experimental)
+enable_distributed = false
+
+# Enable cloud sync (experimental)
+enable_cloud_sync = false
+
+# Enable telemetry
+enable_telemetry = false
+
+# Enable experimental models
+enable_experimental_models = false

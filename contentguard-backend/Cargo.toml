@@ -1,0 +1,143 @@
+[package]
+name = "contentguard"
+version = "1.0.0"
+edition = "2021"
+authors = ["ContentGuard AI Team"]
+description = "AI-powered YouTube strike prevention system"
+license = "MIT"
+repository = "https://github.com/contentguard/contentguard"
+rust-version = "1.75"
+
+[workspace]
+members = [
+    "crates/core",
+    "crates/vulkan",
+    "crates/ml",
+    "crates/api",
+    "crates/cli",
+]
+
+[[bin]]
+name = "contentguard"
+path = "src/main.rs"
+
+[dependencies]
+# Core dependencies
+tokio = { version = "1.35", features = ["full", "rt-multi-thread"] }
+anyhow = "1.0"
+thiserror = "1.0"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+
+# Async runtime
+futures = "0.3"
+async-trait = "0.1"
+
+# HTTP API
+actix-web = "4.4"
+actix-cors = "0.7"
+actix-ws = "0.2"
+
+# Video/Audio processing
+ffmpeg-next = "6.1"
+rodio = "0.17"
+image = "0.24"
+
+# ML Inference
+tensorflow = { version = "0.1", optional = true }
+onnxruntime = { version = "0.0.14", optional = true }
+tract-onnx = "0.21"
+ndarray = "0.15"
+
+# GPU Acceleration
+vulkano = "0.34"
+vulkano-shaders = "0.34"
+ash = "0.37"
+gpu-allocator = "0.25"
+
+# Database (embedded)
+sled = "0.34"
+rocksdb = { version = "0.21", optional = true }
+
+# Cryptography
+ring = "0.17"
+aes-gcm = "0.10"
+
+# Compression
+zstd = "0.13"
+lz4 = "1.24"
+
+# HTTP client for policy updates
+reqwest = { version = "0.11", features = ["json", "rustls-tls"], default-features = false }
+
+# CLI
+clap = { version = "4.4", features = ["derive"] }
+indicatif = "0.17"
+console = "0.15"
+dialoguer = "0.11"
+
+# Utilities
+chrono = { version = "0.4", features = ["serde"] }
+uuid = { version = "1.6", features = ["v4", "serde"] }
+regex = "1.10"
+lazy_static = "1.4"
+parking_lot = "0.12"
+crossbeam = "0.8"
+dashmap = "5.5"
+rayon = "1.8"
+
+# Configuration
+config = "0.14"
+dotenvy = "0.15"
+
+# Error handling
+eyre = "0.6"
+color-eyre = "0.6"
+
+# Logging
+log = "0.4"
+env_logger = "0.11"
+
+# Metrics
+metrics = "0.22"
+metrics-exporter-prometheus = "0.13"
+
+# Testing
+tempfile = "3.9"
+mockall = "0.12"
+
+[dev-dependencies]
+criterion = { version = "0.5", features = ["html_reports"] }
+proptest = "1.4"
+
+[features]
+default = ["api", "cli"]
+api = ["actix-web", "actix-cors", "actix-ws"]
+cli = ["clap", "indicatif", "console", "dialoguer"]
+gpu = ["vulkan"]
+vulkan = ["vulkano", "vulkano-shaders", "ash"]
+ml-tensorflow = ["tensorflow"]
+ml-onnxruntime = ["onnxruntime"]
+embedded-db = ["rocksdb"]
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
+
+[profile.release-with-debug]
+inherits = "release"
+strip = false
+debug = true
+
+[profile.dev]
+opt-level = 0
+debug = true
+
+[[bench]]
+name = "analysis_benchmark"
+harness = false

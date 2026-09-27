@@ -1,0 +1,195 @@
+/* App-specific styles */
+
+/* Smooth section transitions */
+section {
+  will-change: transform, opacity;
+}
+
+/* Video card enhancements */
+.video-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 22px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* Analytics panel positioning for mobile */
+@media (max-width: 1024px) {
+  .analytics-panel {
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+    width: 90% !important;
+    max-width: 400px;
+    margin-top: 2rem;
+  }
+  
+  .video-card {
+    width: 90vw !important;
+    height: 50vw !important;
+    position: relative !important;
+    left: auto !important;
+    top: auto !important;
+    transform: none !important;
+  }
+  
+  .section-pinned {
+    flex-direction: column;
+    padding: 2rem 0;
+    height: auto !important;
+    min-height: 100vh;
+  }
+}
+
+/* Slider styling */
+[data-slot="slider-track"] {
+  background: rgba(255, 255, 255, 0.1) !important;
+  height: 6px !important;
+  border-radius: 3px !important;
+}
+
+[data-slot="slider-range"] {
+  background: linear-gradient(90deg, #00F0FF, #7B61FF) !important;
+  border-radius: 3px !important;
+}
+
+[data-slot="slider-thumb"] {
+  background: #00F0FF !important;
+  border: 2px solid #05060B !important;
+  box-shadow: 0 0 10px rgba(0, 240, 255, 0.5) !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+/* Progress bar styling */
+[data-slot="progress-indicator"] {
+  background: linear-gradient(90deg, #00F0FF, #7B61FF) !important;
+}
+
+/* Badge enhancements */
+.badge {
+  backdrop-filter: blur(10px);
+}
+
+/* Button hover effects */
+button {
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Glass card hover */
+.glass-card {
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  background: rgba(11, 14, 23, 0.9);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* Timeline segment animations */
+.timeline-segment {
+  transition: all 0.3s ease;
+}
+
+.timeline-segment:hover {
+  filter: brightness(1.2);
+}
+
+/* Scan line animation enhancement */
+@keyframes scanLine {
+  0% {
+    top: 0%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
+  }
+}
+
+.scan-line {
+  animation: scanLine 3s ease-in-out infinite;
+}
+
+/* Pulse animation for analyzing dot */
+@keyframes pulseDot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.3);
+  }
+}
+
+.pulse-dot {
+  animation: pulseDot 1.5s ease-in-out infinite;
+}
+
+/* Navigation blur */
+nav {
+  background: linear-gradient(to bottom, rgba(5, 6, 11, 0.9), transparent);
+  backdrop-filter: blur(10px);
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection color */
+::selection {
+  background: rgba(0, 240, 255, 0.3);
+  color: #F4F6FF;
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid #00F0FF;
+  outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .scan-line {
+    animation: none;
+    opacity: 0.3;
+    top: 50%;
+  }
+  
+  .pulse-dot {
+    animation: none;
+    opacity: 1;
+  }
+}
